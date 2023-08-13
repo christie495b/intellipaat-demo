@@ -8,11 +8,13 @@ pipeline {
 				sh "mvn install"
 			}
 		}
+
+		stage ("This stage will copy the package to the S3 bucket") {
+			steps {
+				sh "aws s3 cp /home/ubuntu/build_server/workspace/jenkins_pipeline_build/target/hello-world-webapp.war s3://serverless-code"
+			}
+		}
 	}
 
-	stage ("This stage will copy the package to the S3 bucket") {
-		steps {
-			sh "aws s3 cp /home/ubuntu/build_server/workspace/jenkins_pipeline_build/target/hello-world-webapp.war s3://serverless-code"
-		}
-	}	
+		
 }
